@@ -1,28 +1,68 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="cell cell-map">
+      <MapContainer />
+    </div>
+    <div class="cell cell-debug">
+      <div class="cell cell-edit">
+        Edit
+      </div>
+      <div class="cell cell-inspect">
+        Inspect
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import MapContainer from "./components/MapContainer.vue";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MapContainer
   }
 }
 </script>
 
 <style>
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+  display: grid;
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.cell {
+  border-radius: 4px;
+  background-color: lightgrey;
+}
+
+.cell-map {
+  flex: 2
+}
+
+.cell-debug {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cell-edit {
+  flex: 1;
+  display: flex;
+}
+
+.cell-inspect {
+  flex: 1;
+  display: flex;
 }
 </style>
