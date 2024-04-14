@@ -55,6 +55,17 @@ export default {
                 constrainResolution: true
             }),
         })
+        this.olMap.on('pointermove', (event) => {
+            // will return the first feature under the pointer
+            const hovered = this.olMap.forEachFeatureAtPixel(
+                event.pixel,
+                (feature) => feature
+            )
+
+            // emit a `select` event, either with a feature or without
+            this.$emit('select', hovered)
+        })
+
         // we’re calling `updateSource` to show the object initially
         this.updateSource(this.geojson)
     },
@@ -79,6 +90,7 @@ export default {
             // this zooms the view on the created object
             view.fit(source.getExtent());
         }
-    }
+    },
+    emits: ['select']
 }
 </script>

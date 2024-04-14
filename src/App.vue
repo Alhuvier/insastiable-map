@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="cell cell-map">
-      <MapContainer :geojson="geojson"></MapContainer>
+      <MapContainer :geojson="geojson" v-on:select="selected = $event"></MapContainer>
     </div>
     <div class="cell cell-debug">
       <div class="cell cell-edit">
@@ -9,7 +9,8 @@
         </EditDebug>
       </div>
       <div class="cell cell-inspect">
-        Inspect
+        <InspectDebug :feature="selected">
+        </InspectDebug>
       </div>
     </div>
   </div>
@@ -18,12 +19,16 @@
 <script>
 import MapContainer from "./components/MapContainer.vue";
 import EditDebug from "./components/EditDebug.vue";
+import InspectDebug from "./components/InspectDebug.vue";
+
 export default {
   name: 'App',
   components: {
     MapContainer,
-    EditDebug
+    EditDebug,
+    InspectDebug
   }, data: () => ({
+    selected: undefined,
     // this is the initial GeoJSON data
     geojson: {
       type: 'Feature',
