@@ -26,7 +26,7 @@ export default {
     name: 'MultiSelectRegion',
     data() {
         return {
-            regions: [regionsToShow[0].text],
+            regions: null,
             options: regionsToShow
         }
     },
