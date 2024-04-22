@@ -1,16 +1,22 @@
 <template>
   <div id="app">
-    <div class="cell cell-map">
-      <MapContainer :geojson="geojson" v-on:select="selected = $event"></MapContainer>
+    <div class="toolbar">
+      <MultiSelectRegion v-on:change="geojson = $event">
+      </MultiSelectRegion>
     </div>
-    <div class="cell cell-debug">
-      <div class="cell cell-edit">
-        <EditDebug :geojson="geojson" v-on:change="geojson = $event">
-        </EditDebug>
+    <div class="cell-container">
+      <div class="cell cell-map">
+        <MapContainer :geojson="geojson" v-on:select="selected = $event"></MapContainer>
       </div>
-      <div class="cell cell-inspect">
-        <InspectDebug :feature="selected">
-        </InspectDebug>
+      <div class="cell cell-debug">
+        <div class="cell cell-edit">
+          <EditDebug :geojson="geojson" v-on:change="geojson = $event">
+          </EditDebug>
+        </div>
+        <div class="cell cell-inspect">
+          <InspectDebug :feature="selected">
+          </InspectDebug>
+        </div>
       </div>
     </div>
   </div>
@@ -20,14 +26,17 @@
 import MapContainer from "./components/MapContainer.vue";
 import EditDebug from "./components/EditDebug.vue";
 import InspectDebug from "./components/InspectDebug.vue";
+import MultiSelectRegion from "./components/MultiSelectRegion.vue";
 
 export default {
   name: 'App',
   components: {
     MapContainer,
     EditDebug,
-    InspectDebug
+    InspectDebug,
+    MultiSelectRegion
   }, data: () => ({
+    regions: undefined,
     selected: undefined,
     // this is the initial GeoJSON data
     geojson: {
@@ -73,7 +82,7 @@ body {
   height: 100%;
   display: grid;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -81,6 +90,12 @@ body {
 .cell {
   border-radius: 4px;
   background-color: lightgrey;
+}
+
+.cell-container {
+  flex: 10;
+  display: flex;
+  flex-direction: row;
 }
 
 .cell-map {
@@ -99,6 +114,11 @@ body {
 }
 
 .cell-inspect {
+  flex: 1;
+  display: flex;
+}
+
+.toolbar {
   flex: 1;
   display: flex;
 }
